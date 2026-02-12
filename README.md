@@ -1,3 +1,4 @@
 # JavaProject
 # В данном репозитории находятся лабораторные работы по дисциплине "ПнаЯВУ"
-# Ссылка на Sonar Cloud - 
+# Тема проекта "Ресторан"
+# Ссылка на Sonar Cloud - https://sonarcloud.io/organizations/shurriik/projects

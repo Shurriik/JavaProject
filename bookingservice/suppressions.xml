@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0"?>
 <!DOCTYPE suppressions PUBLIC
     "-//Checkstyle//DTD Suppressions 1.2//EN"
@@ -7,4 +8,15 @@
     <suppress checks=".*Javadoc.*" files=".*"/>
     <suppress checks="AtclauseOrder|NonEmptyAtclauseDescription|RequireEmptyLineBeforeBlockTagGroup"
               files=".*"/>
+=======
+<?xml version="1.0"?>
+<!DOCTYPE suppressions PUBLIC
+    "-//Checkstyle//DTD Suppressions 1.2//EN"
+    "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+<suppressions>
+    <suppress checks="FileTabCharacter" files=".*"/>
+    <suppress checks=".*Javadoc.*" files=".*"/>
+    <suppress checks="AtclauseOrder|NonEmptyAtclauseDescription|RequireEmptyLineBeforeBlockTagGroup"
+              files=".*"/>
+>>>>>>> fb8042b12f0ecc6ca6493ae6ae0468d87b7b1d45
 </suppressions>

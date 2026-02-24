@@ -1,7 +1,6 @@
 package com.restaurant.bookingservice.repository;
 
 import com.restaurant.bookingservice.model.Table;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -33,16 +32,11 @@ public class TableRepository {
                     .location(table.getLocation())
                     .description(table.getDescription())
                     .available(table.isAvailable())
-                    .createdAt(LocalDateTime.now())
-                    .updatedAt(LocalDateTime.now())
-                    .createdBy(table.getCreatedBy())
-                    .isDeleted(table.isDeleted())
                     .build();
             tables.add(newTable);
             return newTable;
         } else {
             deleteById(table.getId());
-            table.setUpdatedAt(LocalDateTime.now());
             tables.add(table);
             return table;
         }
@@ -54,54 +48,14 @@ public class TableRepository {
                 .findFirst();
     }
 
-    public Optional<Table> findByIdAndNotDeleted(Long id) {
+    public Optional<Table> findByNumber(Integer number) {
         return tables.stream()
-                .filter(table -> table.getId().equals(id) && !table.isDeleted())
+                .filter(table -> table.getNumber().equals(number))
                 .findFirst();
-    }
-
-    public List<Table> findAllNotDeleted() {
-        return tables.stream()
-                .filter(table -> !table.isDeleted())
-                .toList();
     }
 
     public List<Table> findAll() {
         return new ArrayList<>(tables);
-    }
-
-    public List<Table> findByLocation(String location) {
-        return tables.stream()
-                .filter(table -> table.getLocation().equalsIgnoreCase(location))
-                .toList();
-    }
-
-    public void deleteById(Long id) {
-        tables.removeIf(table -> table.getId().equals(id));
-    }
-
-    public void softDeleted(Long id) {
-        findById(id).ifPresent(table -> {
-            table.setDeleted(true);
-            table.setUpdatedAt(LocalDateTime.now());
-        });
-    }
-
-    public void restoredById(Long id) {
-        findById(id).ifPresent(table -> {
-            if (table.isDeleted()) {
-                table.setDeleted(false);
-                table.setUpdatedAt(LocalDateTime.now());
-            }
-        });
-    }
-
-    public boolean existsByNumber(Integer number) {
-        return tables.stream().anyMatch(table -> table.getNumber().equals(number));
-    }
-
-    public boolean existsById(Long id) {
-        return tables.stream().anyMatch(table -> table.getId().equals(id));
     }
 
     public List<Table> findByFilter(Integer minCapacity, String location, Boolean available) {
@@ -119,11 +73,19 @@ public class TableRepository {
                 .toList();
     }
 
-    public long count() {
-        return tables.size();
+    public void deleteById(Long id) {
+        tables.removeIf(table -> table.getId().equals(id));
     }
 
-    public long countNotDeleted() {
-        return tables.stream().filter(t -> !t.isDeleted()).count();
+    public boolean existsByNumber(Integer number) {
+        return tables.stream().anyMatch(table -> table.getNumber().equals(number));
+    }
+
+    public boolean existsById(Long id) {
+        return tables.stream().anyMatch(table -> table.getId().equals(id));
+    }
+
+    public long count() {
+        return tables.size();
     }
 }
